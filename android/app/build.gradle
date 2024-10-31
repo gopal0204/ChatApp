@@ -1,0 +1,64 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id "dev.flutter.flutter-gradle-plugin"
+    id 'com.google.gms.google-services' // Only one occurrence of each plugin is needed
+}
+
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+android {
+    namespace = "com.example.chatappfirebase"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        // Update to use Java 17
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        // Update to use Java 17
+        jvmTarget = "17"
+    }
+
+    defaultConfig {
+        applicationId = "com.example.chatappfirebase"
+        minSdk = flutter.minSdkVersion // Use this line only
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+        minSdkVersion 23
+        multiDexEnabled true // Keep this for multidex support
+    }
+
+    buildTypes {
+        release {
+            signingConfig = signingConfigs.debug // TODO: Add your own signing config for the release build.
+        }
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+dependencies {
+    // Import the Firebase BoM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:33.5.1')
+
+    // Uncomment the Firebase products you want to use
+    implementation 'com.google.firebase:firebase-analytics' // Example: Analytics
+    implementation 'com.google.firebase:firebase-firestore' // Example: Firestore
+
+    // Multidex support library
+    implementation "androidx.multidex:multidex:2.0.1"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3"
+}
